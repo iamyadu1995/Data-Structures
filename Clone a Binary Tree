@@ -1,0 +1,44 @@
+/* A binary tree node has data, pointer to left child
+   and a pointer to right child 
+struct Node
+{
+    int data;
+    Node* left;
+    Node* right;
+    Node *random;
+};
+*/
+
+/* The function should clone the passed tree and return 
+   root of the cloned tree */
+Node* copyLeftRight(Node *tree,map<Node*,Node*> *m)
+{
+    if(tree==NULL)
+      return NULL;
+    Node *cloned=new Node;
+    cloned->data=tree->data;
+    cloned->left=cloned->right=cloned->random=NULL;
+    (*m)[tree]=cloned;
+    cloned->left=copyLeftRight(tree->left,m);
+    cloned->right=copyLeftRight(tree->right,m);
+  return cloned;    
+}
+void copyRandom(Node *tree,Node *cloned,map<Node*,Node*> *m)
+{
+    if(tree==NULL)
+      return;
+    cloned->random=(*m)[tree->random];
+   copyRandom(tree->left,cloned->left,m);
+   copyRandom(tree->right,cloned->right,m);
+   
+}
+
+Node* cloneTree(Node* tree)
+{
+   if(tree==NULL)
+     return NULL;
+   map<Node*,Node*> *m=new map<Node*,Node*>;
+   Node *cloned=copyLeftRight(tree,m);
+   copyRandom(tree,cloned,m);
+   return cloned;
+}
