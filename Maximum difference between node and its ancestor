@@ -1,0 +1,37 @@
+/* A binary tree node
+struct Node
+{
+    int data;
+    Node* left, * right;
+}; */
+
+/* Your are required to 
+complete this method*/
+void mDiff(Node *root,int x,int* min)
+{
+    if(root==NULL)
+      return;
+    if((x-root->data)> *min)
+      *min=x-root->data;
+    mDiff(root->left,x,min);
+    mDiff(root->right,x,min);
+    
+}
+void diffRecur(Node *root,int* min)
+{
+    if(root==NULL)
+    return;
+  mDiff(root->left,root->data,min);
+  mDiff(root->right,root->data,min);
+  diffRecur(root->left,min);
+  diffRecur(root->right,min);
+}
+
+int maxDiff(Node* root)
+{
+  if(root==NULL)
+    return 0;
+ int min=-999;
+  diffRecur(root,&min);
+  return min;
+}
