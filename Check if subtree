@@ -1,0 +1,62 @@
+/* A binary tree node
+struct Node
+{
+    int key;
+    Node* left, * right;
+}; */
+
+
+/*you are required to 
+complete this function */
+
+#define MAX 100
+
+void Inorder(Node *root,char arr[],int &i)
+{
+    if (root == NULL)
+    {
+        arr[i++] = '$';
+        return;
+    }
+    Inorder(root->left, arr, i);
+    arr[i++] = root->key;
+    Inorder(root->right, arr, i);
+}
+
+void PreOrder(Node *root, char arr[], int &i)
+{
+    if (root == NULL)
+    {
+        arr[i++] = '$';
+        return;
+    }
+    arr[i++] = root->key;
+    PreOrder(root->left, arr, i);
+    PreOrder(root->right, arr, i);
+}
+
+bool isSubtree(Node*  T1 ,Node * T2)
+{
+    
+     if (T2== NULL)  return true;
+    if (T1== NULL)  return false;
+ 
+    
+    int m = 0, n = 0;
+    char inT[MAX], inS[MAX];
+    Inorder(T1, inT, m);
+    Inorder(T2, inS, n);
+    inT[m] = '\0', inS[n] = '\0';
+ 
+    if (strstr(inT, inS) == NULL)
+        return false;
+ 
+     m = 0, n = 0;
+    char preT[MAX], preS[MAX];
+    PreOrder(T1, preT, m);
+    PreOrder(T2, preS, n);
+    preT[m] = '\0', preS[n] = '\0';
+ 
+    return (strstr(preT, preS) != NULL);
+     
+}
