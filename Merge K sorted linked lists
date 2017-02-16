@@ -1,0 +1,41 @@
+/*Linked list Node structure
+struct Node
+{
+    int data;
+    Node* next;
+};*/ 
+
+Node* mergelist(Node* a, Node* b)
+{
+    Node* result = NULL;
+    if (a == NULL)
+        return (b);
+    else if(b == NULL)
+        return (a);
+    if(a->data <= b->data)
+    {
+        result = a;
+        result->next = mergelist(a->next, b);
+    }
+    else
+    {
+        result = b;
+        result->next = mergelist(a, b->next);
+    }
+ 
+    return result;
+}
+
+/* arr[] is an array of pointers to heads of linked lists
+  and N is size of arr[]  */
+Node * mergeKList(Node *arr[], int N)
+{
+    int i=0,j;
+       for(j=1;j<N;j++)
+       {
+           arr[i]=mergelist(arr[i],arr[j]);
+       }
+         return arr[0];
+    
+      
+}
