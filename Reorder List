@@ -1,0 +1,44 @@
+/* Following is the Linked list node structure */
+/*struct Node
+{
+    int data;
+    Node* next;
+};*/
+int count(Node *head)
+{
+    Node *p=head;
+    int c=1;
+    while(p->next!=NULL)
+    {
+        p=p->next;
+        c++;
+    }
+    return c;
+}
+
+void reorderList(Node* head) 
+{
+    Node *p=head,*q,*r;
+    int c=count(head);
+    int i=1,f=(c/2),x,flag;
+    while(f--)
+    {
+        r=p;
+        flag=0;
+        x=(c-(i+1));
+        while(x--)
+        {
+          r=r->next;
+          flag=1;
+        }
+        if(flag==1)
+        {
+        q=r->next;  
+        q->next=p->next;
+        p->next=q;
+        p=q->next;
+        r->next=NULL;
+        i+=2;
+        }
+    }
+}
