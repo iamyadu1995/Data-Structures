@@ -1,0 +1,49 @@
+/*  Tree node
+struct Node
+{
+    int data;
+    Node* left, * right;
+}; */
+
+/*You are required to complete below method */
+void pathCounts(Node *root)
+{
+    int a[100];
+    memset(a,0,sizeof(a));
+    queue<Node *> q;
+    q.push(root);
+    Node *temp;
+    int count=1,level=1,x=0;
+    while(!q.empty())
+    {
+        while(count--)
+        {
+            temp=q.front();
+            q.pop();
+            
+            if(temp->left!=NULL){
+             q.push(temp->left);
+             x++;}
+            
+            if(temp->right){
+             q.push(temp->right);
+             x++;}
+            if(temp->right==NULL && temp->left==NULL)
+              a[level]++;
+            
+        }
+        level++;
+        count=x;
+        x=0;
+    }
+    for(int i=0;i<100;i++)
+    {
+        if(a[i]!=0)
+        {
+            cout<<i<<" ";
+            cout<<a[i]<<" "<<"$";
+        }
+        
+    }
+    
+}
