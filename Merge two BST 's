@@ -1,0 +1,33 @@
+/* The structure of Node is
+struct Node {
+int data;
+Node * right, * left;
+};*/
+
+/*You are required to complete below method */
+
+void inorder(Node *root,int arr[],int *i)
+{
+    if(root==NULL)
+      return;
+    inorder(root->left,arr,i);
+    arr[*i]=root->data;
+    (*i)++;
+    inorder(root->right,arr,i);
+    //return *i;
+}
+
+
+void merge(Node *root1, Node *root2)
+{
+   int arr[200];
+   int i=0;
+    inorder(root1,arr,&i);
+    inorder(root2,arr,&i);
+        
+       sort(arr,arr+i);
+       for(int j=0;j<i;j++)
+             cout<<arr[j]<<" ";
+          
+      
+}
