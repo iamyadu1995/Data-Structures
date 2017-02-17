@@ -1,0 +1,57 @@
+/* A binary tree node
+struct Node
+{
+    int data;
+    Node* left, * right;
+}; */
+
+
+Node *findlca(Node* root, int n1, int n2)
+{
+    
+    if (root == NULL) return NULL;
+ 
+    if (root->data == n1 || root->data == n2)
+        return root;
+    Node *left_lca  = findlca(root->left, n1, n2);
+    Node *right_lca = findlca(root->right, n1, n2);
+
+    if (left_lca && right_lca)  return root;
+ 
+    return (left_lca != NULL)? left_lca: right_lca;
+}
+   
+int findDist(Node* root, int a, int b)
+{
+    Node *p=findlca(root,a,b);
+    //cout<<p->data;
+    queue<Node *> q;
+    q.push(root);
+    int l1=0,l2=0,l3=0;
+    Node *temp;
+    int c=1,l=1,x=0;
+    while(!q.empty())
+    {
+        while(c--)
+        {
+            temp=q.front();
+            q.pop();
+            if(temp==p)
+              l1=l;
+            if(temp->data==a)
+              l2=l;
+            if(temp->data==b)
+              l3=l;  
+            if(temp->left){
+              q.push(temp->left);
+              x++;}
+            if(temp->right){
+              q.push(temp->right);
+              x++;} 
+        }
+        c=x;
+        l++;
+        x=0;
+    }
+    return ((l2-l1)+(l3-l1));
+}
