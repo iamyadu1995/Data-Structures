@@ -1,0 +1,29 @@
+/*The Node structure is
+struct Node {
+int data;
+Node * right, * left;
+};*/
+
+/*You are required to complete below method */
+
+void preorder(Node *root,int k,int *i,int *min)
+{
+    if(root==NULL)
+      return;
+       
+      if(abs((root->data)-k)<(*min)){
+      *min=abs((root->data)-k);
+      *i=root->data;
+    }
+     
+    preorder(root->left,k,i,min);
+    preorder(root->right,k,i,min);
+}
+
+int maxDiff(Node *root, int k)
+{
+    
+    int i=0,min=999;
+   preorder(root,k,&i,&min);
+    return i;
+}
